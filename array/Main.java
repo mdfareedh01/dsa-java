@@ -11,6 +11,6 @@ public class Main {
         Array.print();
         Array.removeAt(2);
         Array.print();
-        System.out.println(Array.indexOf(40));        
+        System.out.println(Array.indexOf(40));
     }
 }
