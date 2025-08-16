@@ -1,36 +1,78 @@
 package stack;
 import java.util.Arrays;
+import java.util.EmptyStackException;
 
-public class Stack {
-    private int[] items;
+public class Stack<T> {
+    private T[] items;
     private int count;
+    private final int minCapacity = 10;
 
+    @SuppressWarnings("unchecked")
+    public Stack() {
+        this.items = (T[]) new Object[minCapacity];
+    }
+
+    @SuppressWarnings("unchecked")
     public Stack(int size) {
-        this.items = new int[size];
+        if(size < 0) throw new IllegalArgumentException();
+        this.items = (T[]) new Object[size == 0 ? minCapacity : size];
     }
 
-    public void push(int value) {
-        if (count == items.length) {
-            throw new StackOverflowError();
+    public void push(T value) {
+        expand();
+        items[count++] = value;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void expand() {
+        if(items.length  == count){
+
+            //manual method
+
+            // T[] newElements = (T[]) new Object[count *2];
+            // for(int i = 0; i < count; i++) {
+            //     newElements[i] = items[i];
+            // }
+            // items = newElements;
+
+            //native way (c code optimized)
+
+            items = Arrays.copyOf(items, count * 2);
         }
-        items[count] = value;
-        count++;
+    }
+    
+    @SuppressWarnings("unchecked")
+    private void shrink() {
+        if((items.length/4) > count && (items.length / 2) >= minCapacity){
+
+            //manual method
+            // T[] newElements = (T[]) new Object[items.length/2];
+            // for(int i = 0; i < count; i++) {
+            //     newElements[i] = items[i];
+            // }
+            // items = newElements;
+
+            //native (c code optimized)
+            items = Arrays.copyOf(items, items.length/2);
+        }
     }
 
-    public int pop() {
-        if (isEmpty())
-            throw new IllegalStateException();
-        count--;
-        return items[count];
+    public T pop() {
+        if (empty())
+            throw new EmptyStackException();
+        T value = items[--count];
+        items[count] = null; // prevent loitering
+        shrink();
+        return value;
     }
 
-    private boolean isEmpty() {
+    public boolean empty() {
         return count == 0;
     }
 
-    public int peek() {
-        if (isEmpty())
-            throw new IllegalStateException();
+    public T peek() {
+        if (empty())
+            throw new EmptyStackException();
         return items[count - 1];
     }
 
