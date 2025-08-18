@@ -58,7 +58,7 @@ public class Stack<T> {
     }
 
     public T pop() {
-        if (empty())
+        if (isEmpty())
             throw new EmptyStackException();
         T value = items[--count];
         items[count] = null; // prevent loitering
@@ -66,12 +66,12 @@ public class Stack<T> {
         return value;
     }
 
-    public boolean empty() {
+    public boolean isEmpty() {
         return count == 0;
     }
 
     public T peek() {
-        if (empty())
+        if (isEmpty())
             throw new EmptyStackException();
         return items[count - 1];
     }
