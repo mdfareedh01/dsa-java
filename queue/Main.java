@@ -6,14 +6,23 @@ import java.util.Queue;
 import stack.Stack;
 
 public class Main {
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public static void main(String[] args) {
-        Queue<Integer> queue = new ArrayDeque<>();
-        queue.add(10);
-        queue.add(20);
-        queue.add(30);
+        ArrayQueue queue = new ArrayQueue<Integer>(5);
+
+        queue.enqueue(10);
+        queue.enqueue(20);
+        queue.enqueue(30);
+        queue.dequeue();
+        var front = queue.dequeue();
+        queue.enqueue(40);
+        queue.enqueue(50);
+        queue.enqueue(60);
+        queue.enqueue(70);
+        queue.enqueue(80);
+        System.out.println(front);
         System.out.println(queue);
-        reverse(queue);
-        System.out.println(queue);
+
 
     }
 
