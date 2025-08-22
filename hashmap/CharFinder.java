@@ -1,7 +1,9 @@
 package hashmap;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class CharFinder {
     public Character findFirstNonRepeatedCharacter(String input) {
@@ -18,6 +20,20 @@ public class CharFinder {
             if(map.get(ch) == 1) {
                 return ch;
             }
+        }
+        
+        return Character.MIN_VALUE;
+    }
+
+    public Character findFirstRepeatedCharacter(String input) {
+        
+        Set<Character> set = new HashSet();
+        
+        for(Character ch: input.toCharArray()) {
+            if(set.contains(ch))
+                return ch;
+
+            set.add(ch);
         }
         
         return Character.MIN_VALUE;

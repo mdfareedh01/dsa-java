@@ -8,5 +8,8 @@ public class Main {
         CharFinder finder = new CharFinder();
         var ch = finder.findFirstNonRepeatedCharacter("hello");
         System.out.println(ch);
+
+        var ch2 = finder.findFirstRepeatedCharacter("hello");
+        System.out.println(ch2);
     }
 }
