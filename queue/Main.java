@@ -1,30 +1,20 @@
 package queue;
 
-import java.util.ArrayDeque;
-import java.util.Queue;
-
-import stack.Stack;
-
 public class Main {
-    @SuppressWarnings({ "unchecked", "rawtypes" })
     public static void main(String[] args) {
-        QueueWithTwoStacks queue = new QueueWithTwoStacks();
+        PriorityQueue queue = new PriorityQueue(5);
         queue.enqueue(10);
-        queue.enqueue(20);
         queue.enqueue(30);
-        queue.dequeue();
-        queue.dequeue();
-        // queue.dequeue();
-        var first = queue.peek();
-        System.out.println(first);
-    }
+        queue.enqueue(50);
+        System.out.println(queue);
+        queue.enqueue(60);
+        System.out.println(queue);
+        
+        queue.enqueue(40);
 
-    public static void reverse(Queue<Integer> queue) {
-        Stack<Integer> stack1 = new Stack<>();
+        System.out.println(queue);
+        
+        System.out.println(queue.dequeue());
 
-        while(!queue.isEmpty())
-            stack1.push(queue.remove());
-        while(!stack1.isEmpty())
-            queue.add(stack1.pop());
     }
 }
