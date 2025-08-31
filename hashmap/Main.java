@@ -5,11 +5,11 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        CharFinder finder = new CharFinder();
-        var ch = finder.findFirstNonRepeatedCharacter("hello");
-        System.out.println(ch);
+        var ht = new HashTable();
 
-        var ch2 = finder.findFirstRepeatedCharacter("hello");
-        System.out.println(ch2);
+        ht.put(6, "hello");
+        ht.put(8, "world");
+        ht.put(11, "friends");
+        System.out.println("Done");
     }
 }
