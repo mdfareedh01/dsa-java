@@ -1,0 +1,73 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}",
+            "vmArgs": "--enable-preview",
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "array.Main",
+            "projectName": "dsa-java_e7b2202c",
+            "vmArgs": "--enable-preview",
+        },
+        {
+            "type": "java",
+            "name": "blind75",
+            "request": "launch",
+            "mainClass": "blind75",
+            "projectName": "dsa-java_e7b2202c",
+            "vmArgs": "--enable-preview",
+        },
+        {
+            "type": "java",
+            "name": "Main(1)",
+            "request": "launch",
+            "mainClass": "hashmap.Main",
+            "projectName": "dsa-java_e7b2202c",
+            "vmArgs": "--enable-preview",
+        },
+        {
+            "type": "java",
+            "name": "Main(2)",
+            "request": "launch",
+            "mainClass": "linkedlist.Main",
+            "projectName": "dsa-java_e7b2202c",
+            "vmArgs": "--enable-preview",
+
+        },
+        {
+            "type": "java",
+            "name": "Main(3)",
+            "request": "launch",
+            "mainClass": "queue.Main",
+            "projectName": "dsa-java_e7b2202c",
+            "vmArgs": "--enable-preview",
+        },
+        {
+            "type": "java",
+            "name": "Main(4)",
+            "request": "launch",
+            "mainClass": "stack.Main",
+            "projectName": "dsa-java_e7b2202c",
+            "vmArgs": "--enable-preview",
+        },
+        {
+            "type": "java",
+            "name": "Main(5)",
+            "request": "launch",
+            "mainClass": "trees.Main",
+            "projectName": "dsa-java_e7b2202c",
+            "vmArgs": "--enable-preview",
+        }
+    ]
+}

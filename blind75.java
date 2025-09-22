@@ -20,10 +20,11 @@ public class blind75 {
         // System.out.println(hasDuplicateUsingHashSet(new int[] {1,2,3,4}));
         // System.out.println(hasDuplicateUsingHashSet(new int[] {1,2,3,4}));
         // System.out.println(topKFrequent(new int[] {1, 1, 1, 1, 2, 2, 2, 3, 4, 4, 4, 4, 4, 4}, 3).toString());
-        var str = encode(new ArrayList<>(List.of("Apple", "Ball", "Cat")));
-        System.out.println(str);
-        var result = decode(str);
-        System.out.println(result.toString());
+        // var str = encode(new ArrayList<>(List.of("Apple", "Ball", "Cat")));
+        // System.out.println(str);
+        // var result = decode(str);
+        // System.out.println(result.toString());
+        System.out.println(Arrays.toString(prefixSum(new int[] {1,2,4,6})));
         
     }
 
@@ -176,6 +177,35 @@ public class blind75 {
             i = j+length;
         }
         
+        return result;
+    }
+
+    public static int[] productExceptSelf(int[] nums) {
+        var result = new int[nums.length];
+
+        for(int i = 0; i < nums.length; i++)
+        {
+            var mul = 1;
+            for(int j=0; j< nums.length; j++) {
+                if(i != j){
+                    mul *= nums[j];
+                }
+            }
+            result[i] = mul;
+        }
+
+        return result;
+    }
+
+    public static int[] prefixSum(int[] nums) {
+        var result = new int[nums.length];
+
+        result[0] = nums[0];
+
+        for(int i = 1; i < nums.length; i++) {
+            result[i] = result[i-1] + nums[i];
+        }
+
         return result;
     }
 }
