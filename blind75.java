@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -16,7 +17,14 @@ public class blind75 {
         // System.out.println(isAnagram("fareedh", "hdreraf"));
         // groupAnagram(new String[] {"eat","tea","tan","ate","nat","bat"});
         // System.out.println(hasDuplicate(new int[] {1,2,3,4}));
-        System.out.println(hasDuplicateUsingHashSet(new int[] {1,2,3,4}));
+        // System.out.println(hasDuplicateUsingHashSet(new int[] {1,2,3,4}));
+        // System.out.println(hasDuplicateUsingHashSet(new int[] {1,2,3,4}));
+        // System.out.println(topKFrequent(new int[] {1, 1, 1, 1, 2, 2, 2, 3, 4, 4, 4, 4, 4, 4}, 3).toString());
+        var str = encode(new ArrayList<>(List.of("Apple", "Ball", "Cat")));
+        System.out.println(str);
+        var result = decode(str);
+        System.out.println(result.toString());
+        
     }
 
     public static boolean isAnagram(String s, String t) {
@@ -113,5 +121,61 @@ public class blind75 {
         return false;
     }
 
-    
+    public static int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        List<int[]> arr = new ArrayList<>();
+
+        for(int num: nums){
+            map.put(num, map.getOrDefault(num, 0)+1);
+        }
+
+        for(Map.Entry<Integer, Integer> entry : map.entrySet()){
+            arr.add(new int[] {entry.getValue(), entry.getKey()});
+        }
+
+        arr.sort((a, b) -> b[0] - a[0]);
+
+        int[] res = new int[k];
+        for (int i = 0; i < k; i++) {
+            res[i] = arr.get(i)[1];
+        }
+        
+        return res;
+    }
+
+    public static String encode(List<String> strs) {
+        
+        StringBuilder encodedBuilder = new StringBuilder();
+
+        for(int i = 0; i < strs.size(); i++){
+            var count = strs.get(i).toCharArray().length;
+            encodedBuilder.append(count + "#" + strs.get(i));
+        }
+
+        return encodedBuilder.toString();
+    }
+
+    public static List<String> decode(String str) {
+        List<String> result = new ArrayList<>();
+
+        var i = 0;
+
+        while(i < str.length()){
+            int j =i;
+            while(j < str.length() && Character.isDigit(str.charAt(j))){
+                j++;
+            }
+
+            int length = Integer.parseInt(str.substring(i,j));
+
+            j++; //for #
+
+            String s = str.substring(j, j+length);
+            result.add(s);
+
+            i = j+length;
+        }
+        
+        return result;
+    }
 }
