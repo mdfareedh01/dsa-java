@@ -24,8 +24,10 @@ public class blind75 {
         // System.out.println(str);
         // var result = decode(str);
         // System.out.println(result.toString());
-        System.out.println(Arrays.toString(prefixSum(new int[] {1,2,4,6})));
-        
+        // System.out.println(Arrays.toString(prefixSum(new int[] {1,2,4,6})));
+        // System.out.println(Arrays.toString(prefixMul(new int[] {1,2,4,6})));
+        // System.out.println(productMulBetween(new int[] {1,2,3,4,5,6}, 2,4));
+        System.out.println(scoreOfString("neetcode"));
     }
 
     public static boolean isAnagram(String s, String t) {
@@ -198,14 +200,90 @@ public class blind75 {
     }
 
     public static int[] prefixSum(int[] nums) {
-        var result = new int[nums.length];
+        var prefix = new int[nums.length];
+        var postfix = new int[nums.length];
 
-        result[0] = nums[0];
+        prefix[0] = nums[0];
 
         for(int i = 1; i < nums.length; i++) {
-            result[i] = result[i-1] + nums[i];
+            prefix[i] = prefix[i-1] + nums[i];
         }
 
-        return result;
+        postfix[nums.length - 1] = nums[nums.length - 1];
+
+        for(int i = nums.length - 2; i >= 0; i--) {
+            postfix[i] = postfix[i + 1] + nums[i];
+        }
+
+        System.out.println("prefixSum Array   : " + Arrays.toString(nums));
+        System.out.println("prefixSum Prefix  : " + Arrays.toString(prefix));
+        System.out.println("prefixSum Postfix : " + Arrays.toString(postfix));
+
+        return prefix;
     }
+
+    public static int[] prefixMul(int[] nums) {
+        var prefix = new int[nums.length];
+        var postfix = new int[nums.length];
+
+        prefix[0] = nums[0];
+
+        for(int i = 1; i < nums.length; i++) {
+            prefix[i] = prefix[i-1] * nums[i];
+        }
+
+        postfix[nums.length - 1] = nums[nums.length - 1];
+
+        for(int i = nums.length - 2; i >= 0; i--) {
+            postfix[i] = postfix[i + 1] * nums[i];
+        }
+
+        System.out.println("prefixMul Array   : " + Arrays.toString(nums));
+        System.out.println("prefixMul Prefix  : " + Arrays.toString(prefix));
+        System.out.println("prefixMul Postfix : " + Arrays.toString(postfix));
+
+        return prefix;
+    }
+
+    public static int productMulBetween(int[] nums, int start, int end) {
+        var prefix = new int[nums.length];
+        var postfix = new int[nums.length];
+
+        prefix[0] = nums[0];
+        
+        var mul = 1;
+        for(int i = start; i <= end; i++) {
+            mul = mul * nums[i];
+        }
+
+        postfix[nums.length - 1] = nums[nums.length - 1];
+
+        for(int i = nums.length - 2; i >= 0; i--) {
+            postfix[i] = postfix[i + 1] * nums[i];
+        }
+
+        // System.out.println("prefixMul Array   : " + Arrays.toString(nums));
+        // System.out.println("prefixMul Prefix  : " + Arrays.toString(prefix));
+        // System.out.println("prefixMul Postfix : " + Arrays.toString(postfix));
+
+        return mul;
+    }
+
+    public static int scoreOfString(String s) {
+        var sumOfDifference = 0;
+        for(int i = 0; i < s.length() - 1; i++){
+            sumOfDifference += Math.abs(s.charAt(i) - s.charAt(i+1));
+        }
+        return sumOfDifference;
+    }
+
+    // public static int[] concatenationOfArray(int[] nums) {
+    //     var resArr = new int[nums.length * 2];
+
+    //     for(int i = 0; i < nums.length; i++) {
+
+    //     }
+
+    //     return resArr
+    // }
 }
