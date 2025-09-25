@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class blind75 {
     // If nums = [1, 5, 3, 7] and target = 8
@@ -27,7 +28,10 @@ public class blind75 {
         // System.out.println(Arrays.toString(prefixSum(new int[] {1,2,4,6})));
         // System.out.println(Arrays.toString(prefixMul(new int[] {1,2,4,6})));
         // System.out.println(productMulBetween(new int[] {1,2,3,4,5,6}, 2,4));
-        System.out.println(scoreOfString("neetcode"));
+        // System.out.println(scoreOfString("neetcode"));
+        // System.out.println(Arrays.toString(productExceptSelf(new int[] {1,2,4,6})));
+        // System.out.println(longestConsecutive(new int[] {0,3,2,5,4,6,1,1}));
+        System.out.println(isPalindrome("A man, a plan, a canal: Panama"));
     }
 
     public static boolean isAnagram(String s, String t) {
@@ -185,15 +189,30 @@ public class blind75 {
     public static int[] productExceptSelf(int[] nums) {
         var result = new int[nums.length];
 
-        for(int i = 0; i < nums.length; i++)
-        {
-            var mul = 1;
-            for(int j=0; j< nums.length; j++) {
-                if(i != j){
-                    mul *= nums[j];
-                }
-            }
-            result[i] = mul;
+        var prefix = new int[nums.length];
+        var postfix = new int[nums.length];
+
+        prefix[0] = nums[0];
+
+        for(int i = 1; i < nums.length; i++) {
+            prefix[i] = prefix[i-1] * nums[i];
+        }
+
+        postfix[nums.length - 1] = nums[nums.length - 1];
+
+        for(int i = nums.length - 2; i >= 0; i--) {
+            postfix[i] = postfix[i + 1] * nums[i];
+        }
+
+        for(int i = 0; i < nums.length; i++) {
+            var nextIndex = i+1;
+            var prevIndex = i-1;
+
+            var next = nextIndex == nums.length ? 1 : postfix[nextIndex];
+            var prev = prevIndex < 0 ? 1 : prefix[prevIndex];
+            // next = postfix[i+1];
+            // prev = prefix[i-1];
+            result[i] = prev * next;
         }
 
         return result;
@@ -286,4 +305,44 @@ public class blind75 {
 
     //     return resArr
     // }
+
+    public static int longestConsecutive(int[] nums) {
+        Set<Integer> set = Arrays.stream(nums)   // IntStream
+                         .boxed()        // convert int → Integer
+                         .collect(Collectors.toSet());
+
+        var longest = 0;
+
+        for(int n: nums) {
+            if(set.contains(n-1)) {
+                var length = 0;
+                while(set.contains(n + length)){
+                    length++;
+                    longest = Math.max(length, longest);
+                }  
+            }
+        }
+        
+        return longest;
+    }
+
+    public static boolean isPalindrome(String str) {
+        int left = 0, right = str.length() - 1;
+
+        while(left < right) {
+            while(left < right && !Character.isLetterOrDigit(str.charAt(left)))
+                left++;
+            while(right > left && !Character.isLetterOrDigit(str.charAt(right)))
+                right--;
+
+            if(Character.toLowerCase(str.charAt(left)) != Character.toLowerCase(str.charAt(right))){
+                return false;
+            }
+
+            left++;
+            right--;
+        }
+
+        return true;
+    }
 }
