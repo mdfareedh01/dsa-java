@@ -31,7 +31,9 @@ public class blind75 {
         // System.out.println(scoreOfString("neetcode"));
         // System.out.println(Arrays.toString(productExceptSelf(new int[] {1,2,4,6})));
         // System.out.println(longestConsecutive(new int[] {0,3,2,5,4,6,1,1}));
-        System.out.println(isPalindrome("A man, a plan, a canal: Panama"));
+        // System.out.println(isPalindrome("A man, a plan, a canal: Panama"));
+        // System.out.println(maxProfit(new int[] {10,1,5,6,7,1}));
+        System.out.println(maxProfit(new int[] {1,5}));
     }
 
     public static boolean isAnagram(String s, String t) {
@@ -344,5 +346,38 @@ public class blind75 {
         }
 
         return true;
+    }
+
+    public static int maxProfit(int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+        var minPriceSoFar = nums[0];
+        var maxPriceSoFar = nums[0];
+        for(int i = 0; i < nums.length; i++){
+            if(nums[i] > maxPriceSoFar)
+            maxPriceSoFar = nums[i];
+            
+            if(nums[i] < minPriceSoFar){
+                minPriceSoFar = nums[i];
+                maxPriceSoFar = 0;
+            }
+        }
+        
+        return maxPriceSoFar > minPriceSoFar ? maxPriceSoFar - minPriceSoFar : 0;
+    }
+    
+    public static int maxProfitOptimzed(int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+        var minPrice = nums[0];
+        var maxProfit = 0;
+
+        for(int i = 1; i< nums.length; i++) {
+            int profit = nums[i] - minPrice;
+
+            maxProfit = Math.max(maxProfit, profit);
+
+            minPrice = Math.min(minPrice, nums[i]);
+        }
+
+        return maxProfit;
     }
 }
