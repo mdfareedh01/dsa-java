@@ -33,7 +33,8 @@ public class blind75 {
         // System.out.println(longestConsecutive(new int[] {0,3,2,5,4,6,1,1}));
         // System.out.println(isPalindrome("A man, a plan, a canal: Panama"));
         // System.out.println(maxProfit(new int[] {10,1,5,6,7,1}));
-        System.out.println(maxProfit(new int[] {1,5}));
+        // System.out.println(maxProfit(new int[] {1,5}));
+        System.out.println(maxArea(new int[] {1,8,6,2,5,4,8,3,7}));
     }
 
     public static boolean isAnagram(String s, String t) {
@@ -379,5 +380,29 @@ public class blind75 {
         }
 
         return maxProfit;
+    }
+
+    public static int maxArea(int[] heights) {
+        if (heights == null || heights.length == 0) return 0;
+        var maxArea = 0;
+        int l = 0, r = heights.length-1;
+
+        while(l < r){
+
+            int h = Math.min(heights[l], heights[r]);
+            int width = r - l;
+            int area = width * h;
+
+            maxArea = Math.max(maxArea, area);
+
+            if(heights[l] < heights[r]) {
+                l++;
+            }
+            else {
+                r--;
+            }
+        }
+
+        return maxArea;
     }
 }
