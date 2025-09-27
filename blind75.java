@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
 public class blind75 {
@@ -34,7 +35,8 @@ public class blind75 {
         // System.out.println(isPalindrome("A man, a plan, a canal: Panama"));
         // System.out.println(maxProfit(new int[] {10,1,5,6,7,1}));
         // System.out.println(maxProfit(new int[] {1,5}));
-        System.out.println(maxArea(new int[] {1,8,6,2,5,4,8,3,7}));
+        // System.out.println(maxArea(new int[] {1,8,6,2,5,4,8,3,7}));
+        System.out.println(isValid("([{})"));
     }
 
     public static boolean isAnagram(String s, String t) {
@@ -301,11 +303,8 @@ public class blind75 {
 
     // public static int[] concatenationOfArray(int[] nums) {
     //     var resArr = new int[nums.length * 2];
-
     //     for(int i = 0; i < nums.length; i++) {
-
     //     }
-
     //     return resArr
     // }
 
@@ -383,26 +382,46 @@ public class blind75 {
     }
 
     public static int maxArea(int[] heights) {
-        if (heights == null || heights.length == 0) return 0;
-        var maxArea = 0;
-        int l = 0, r = heights.length-1;
+        int m = 0;
+        int l = 0;
+        int r = heights.length - 1;
 
-        while(l < r){
-
+        while(l < r) {
             int h = Math.min(heights[l], heights[r]);
-            int width = r - l;
-            int area = width * h;
+            int w = r - l;
+            int area = h * w;
 
-            maxArea = Math.max(maxArea, area);
+            m = Math.max(m, area);
 
-            if(heights[l] < heights[r]) {
+            if(heights[l] < heights[r])
                 l++;
-            }
-            else {
+            else
                 r--;
+        }
+
+        return m;
+    }
+
+    public static boolean isValid(String s) {
+        
+        List<Character> leftBrackets =  Arrays.asList('{', '(', '<', '[');
+        List<Character> rightBrackets =  Arrays.asList('}', ')', '>', ']');
+
+        var stack1 = new Stack<>();
+
+        var arr = s.toCharArray();
+
+        for(Character c: arr){
+            if(leftBrackets.contains(c)){
+                stack1.push(c);
+            }
+            else if(rightBrackets.contains(c)){
+                if(stack1.empty()) return false;
+                var top = stack1.pop();
+                if(leftBrackets.indexOf(top) != rightBrackets.indexOf(c)) return false;
             }
         }
 
-        return maxArea;
+        return stack1.empty();
     }
 }
